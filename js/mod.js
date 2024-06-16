@@ -1,8 +1,8 @@
 let modInfo = {
-	name: "The ??? Tree",
+	name: "The Universal Tree",
 	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
+	author: "PikapikaHei",
+	pointsName: "matter",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
@@ -42,7 +42,7 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(0)
 	return gain
 }
 
