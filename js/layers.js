@@ -6,6 +6,7 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
+    branches: ['h'],
     color: "#4E40C8",
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "quarks", // Name of prestige currency
