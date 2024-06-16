@@ -26,11 +26,3 @@ addLayer("p", {
     ],
     layerShown(){return true}
 })
-
-upgrades: {
-	11: {
-		title: "Effecient Quarks",
-		description: "Double your quark gain.",
-		cost: new Decimal(11),
-	}
-}
