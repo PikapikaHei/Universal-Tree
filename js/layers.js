@@ -6,7 +6,7 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#4E40C8",
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     resource: "quirks", // Name of prestige currency
     baseResource: "matter", // Name of resource prestige is based on
@@ -25,4 +25,12 @@ addLayer("p", {
         {key: "p", description: "P: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true}
+
+    upgrades: {
+	11: {
+	    title: "Effecient Quarks",
+	    description: "Double your quark gain.",
+    	    cost: new Decimal(11),
+	}
+    }
 })
