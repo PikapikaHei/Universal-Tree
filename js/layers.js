@@ -56,6 +56,14 @@ addLayer("e", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
+
+    upgrades: {
+	11: {
+		title: "Energy Generation",
+		description: "Generate 1 matter per second.",
+		cost: new Decimal(1),
+	}
+    }
 })
 
 
