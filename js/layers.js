@@ -41,7 +41,7 @@ addLayer("p", {
 		points: new Decimal(0),
     }},
     color: "#FF0000",
-    branches: [q],
+    branches: ['q'],
     requires: new Decimal(3), // Can be a function that takes requirement increases into account
     resource: "proton", // Name of prestige currency
     baseResource: "quarks", // Name of resource prestige is based on
