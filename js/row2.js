@@ -23,7 +23,7 @@ addLayer("n", {
         mult = mult.times(player.a.points.exp(1.1))
         mult = mult.times((Decimal.pow(new Decimal(player.s.points.pow(3).times(3)).add(1), 2)))
         mult = mult.times(Decimal.max(new Decimal(10).pow(getBuyableAmount('a', 11)), 1))
-        if (player.cn.points > 0) mult = mult.times(new Decimal(10).pow(player.c.points.times(10).times(Decimal.log2(player.c.points.add(new Decimal(2).times(Decimal.log2(Decimal.log10(player.n.points.add(10)).div(8).add(2))))))))
+        if (player.c.points > 0) mult = mult.times(new Decimal(10).pow(player.c.points.times(10).times(Decimal.log2(player.c.points.add(new Decimal(2).times(Decimal.log2(Decimal.log10(player.n.points.add(10)).div(8).add(2))))))))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
