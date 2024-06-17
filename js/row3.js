@@ -25,7 +25,6 @@ addLayer("a", {
             if (hasUpgrade('a', 11)) mult = mult.div(player.e.points.exp(1.2))
             if (hasUpgrade('a', 21)) mult = mult.div(Decimal.pow(2, player.e.points))
             if (player.s.points > 0) mult = mult.div((Decimal.pow(new Decimal(player.s.points).pow(3).times(3).add(1), 2)))
-            if (getBuyableAmount('en', 11) > 0) mult = mult.div((Decimal.pow(1.2, new Decimal(player.en.points).add(1))).times(Decimal.max(new Decimal(5).pow(getBuyableAmount('en', 11)), 1)))
             if (getBuyableAmount('a', 12) > 0) mult = mult.div(Decimal.max(new Decimal(new Decimal(10).times((Decimal.max(new Decimal(1.5).pow(getBuyableAmount('a', 12)), 1)))).pow(Decimal.max(getBuyableAmount('a', 11), 1))))
         return mult
     },
@@ -191,7 +190,7 @@ addLayer("en", {
         return new Decimal(1)
     },
     effectDescription() {
-        return "which are boosting Atoms generation by "+format((Decimal.pow(new Decimal(player.en.points).add(1), 1.5)).times(Decimal.max(new Decimal(5).pow(getBuyableAmount('en', 11)), 1)))+"x"
+        return "which are boosting Quarks and Nucleus generation by "+format((Decimal.pow(new Decimal(player.en.points).add(1), 1.5)).times(Decimal.max(new Decimal(5).pow(getBuyableAmount('en', 11)), 1)))+"x"
     },
     row: 2, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
@@ -215,7 +214,7 @@ addLayer("en", {
             cost() { return Decimal.pow(new Decimal(4), getBuyableAmount('en', this.id)) },
 			title() { return 'Nuclear Fushion' },
 			canAfford() { return player.en.points.gte(this.cost()) && getBuyableAmount(this.layer, this.id).lt(this.purchaseLimit()) },
-			purchaseLimit() { return 10 },
+			purchaseLimit() { return 5 },
 			buy() {
 				player.en.points = player.en.points.sub(this.cost());
 				addBuyables(this.layer, this.id, 1);

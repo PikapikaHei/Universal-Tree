@@ -18,6 +18,7 @@ addLayer("q", {
         mult = new Decimal(1)
         if (hasUpgrade('n', 11)) mult = mult.times(2)
         if (hasUpgrade('n', 21)) mult = mult.times(player.a.points.exp(1.2))
+        if (player.en.points > 0) mult = mult.times((Decimal.pow(1.2, new Decimal(player.en.points).add(1))).times(Decimal.max(new Decimal(5).pow(getBuyableAmount('en', 11)), 1)))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
