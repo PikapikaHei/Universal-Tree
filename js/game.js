@@ -46,8 +46,8 @@ function getNextAt(layer, canMax=false, useType = null) {
 	if(tmp[layer].type == "none")
 		return new Decimal (Infinity)
 
-	if (tmp[layer].gainMult.lte(0)) return new Decimal(Infinity)
-	if (tmp[layer].gainExp.lte(0)) return new Decimal(Infinity)
+	if ((tmp[layer].gainMult).lte(0)) return new Decimal(1);
+	if ((tmp[layer].gainExp).lte(0)) return new Decimal(1);
 
 	if (type=="static") 
 	{
