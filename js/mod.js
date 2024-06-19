@@ -3,7 +3,7 @@ let modInfo = {
 	id: "the-universal-tree",
 	author: "PikapikaHei",
 	pointsName: "matter",
-	modFiles: ["row1.js", "row2.js", "row3.js", "row4.js", "tree.js"],
+	modFiles: ["row1.js", "row2.js", "row3.js", "row4.js", "row5.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -46,12 +46,18 @@ function getPointGen() {
 	if (hasUpgrade('e', 11)) gain = gain.add(1)
 	if (hasUpgrade('e', 12)) gain = gain.times(10)
 	if (hasUpgrade('s', 11)) gain = gain.times(Decimal.pow(player.s.points, 1.2))
-	if (player.m.point > 0) gain = gain.times(player.m.points.pow(2).times(1e4))
-	return gain
+	if (player.s.points > 0) gain = gain.times(((Decimal.min((Decimal.pow(new Decimal(player.s.points).pow(3).times(3).add(1), 2)), 1e6))))
+	if (!hasMilestone('m', 3)) {
+		if (player.m.point > 0) gain = gain.times(player.m.points.times(10).pow(2).times(1e4))
+	} else {
+		if (player.m.point > 0) gain = gain.times(player.m.points.times(10).pow(10).times(1e4))
+	}
+    return gain
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+	
 }}
 
 // Display extra things at the top of the page

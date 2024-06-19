@@ -19,16 +19,24 @@ addLayer("n", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade("e", 13)) mult = mult.times(new Decimal(new Decimal(player.e.points.add(1)).exp(1.1)))
-        if (hasUpgrade("n", 22)) mult = mult.times(Decimal.pow(player.a.points, 2))
-        mult = mult.times(player.a.points.exp(1.1))
-        mult = mult.times((Decimal.pow(new Decimal(player.s.points.pow(3).times(3)).add(1), 2)))
-        mult = mult.times(Decimal.max(new Decimal(10).pow(getBuyableAmount('a', 11)), 1))
-        if (player.en.points > 0) mult = mult.times((Decimal.pow(1.2, new Decimal(player.en.points).add(1))).times(Decimal.max(new Decimal(5).pow(getBuyableAmount('en', 11)), 1)))
-        if (player.c.points > 0) mult = mult.times(new Decimal(10).pow(player.c.points.times(10).times(Decimal.log2(player.c.points.add(new Decimal(2).times(Decimal.log2(Decimal.log10(player.n.points.add(10)).div(8).add(2))))))))
+            if (hasUpgrade("n", 22)) mult = mult.times(Decimal.pow(player.a.points, 2))
+            if (player.a.points > 0) mult = mult.times(player.a.points.exp(1.1))
+            if (player.s.points > 0) mult = mult.times((Decimal.min((Decimal.pow(new Decimal(player.s.points).pow(3).times(3).add(1), 2)), 1e6)))
+            if (getBuyableAmount('a', 11) > 0) mult = mult.times(Decimal.max(new Decimal(10).pow(getBuyableAmount('a', 11)), 1))
+            if (player.c.points > 0) mult = mult.times(new Decimal(10).pow(player.c.points.times(10).times(Decimal.log2(player.c.points.add(new Decimal(2).times(Decimal.log2(Decimal.log10(player.n.points.add(10)).div(8).add(2))))))))
+                if (!hasMilestone('m', 3)) {
+                    if (player.m.point > 0 && hasMilestone('m', 2)) mult = mult.times(player.m.points.times(10).pow(10).times(1e4))
+                } else {
+                    if (player.m.point > 0 && hasMilestone('m', 2)) mult = mult.times(player.m.points.times(10).pow(50).times(1e4))
+                }
+            if (hasMilestone('p', 1)) mult = mult.times(new Decimal(1e50))
+            if (inChallenge('co', 11)) mult = mult.pow(0.0001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        expo = new Decimal(1)
+        if (player.p.points > 0) expo = expo.times(Decimal.log2(player.p.points.times(1.5).add(2)).add(1))
+        return expo
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
@@ -66,6 +74,8 @@ addLayer("n", {
         if (hasMilestone("a", 2) && resettingLayer=="a") keep.push("upgrades")
         if (hasMilestone("s", 2) && resettingLayer=="s") keep.push("upgrades")
         if (hasMilestone("en", 1) && resettingLayer=="en") keep.push("upgrades")
+        if (hasMilestone("m", 0) && resettingLayer=="m") keep.push("upgrades")
+        if (hasMilestone("co", 2)) keep.push("upgrades")
         if (layers[resettingLayer].row > this.row) layerDataReset("n", keep)
     },
 
@@ -110,7 +120,6 @@ addLayer("e", {
     canBuyMax() { return hasMilestone("a", 3) },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        mult = mult.div((Decimal.pow(new Decimal(player.s.points).pow(3).times(3).add(1), 2)))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
